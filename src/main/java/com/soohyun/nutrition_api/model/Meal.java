@@ -1,10 +1,6 @@
 package com.soohyun.nutrition_api.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -21,8 +17,11 @@ public class Meal {
     private String name;
     private int calories;
     private LocalDate date;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    protected Meal() {};
+    protected Meal() {}
 
     public Meal(String name, int calories, LocalDate date) {
         this.name = name;
@@ -52,5 +51,13 @@ public class Meal {
 
     public LocalDate getDate() {
         return date;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
