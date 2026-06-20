@@ -17,7 +17,7 @@ public class Meal {
     private String name;
     private int calories;
     private LocalDate date;
-    @ManyToOne
+    @ManyToOne(optional = true)
     @JoinColumn(name = "user_id")
     private User user;
 

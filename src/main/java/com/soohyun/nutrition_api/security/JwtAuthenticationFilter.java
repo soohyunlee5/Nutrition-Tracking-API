@@ -33,6 +33,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     @NonNull FilterChain filterChain)
             throws ServletException, IOException {
 
+        String path = request.getServletPath();
+
+        if (path.startsWith("/api/auth/")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         // Grab the Authorization header from the request
         final String authHeader = request.getHeader("Authorization");
 
@@ -52,10 +59,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
             // Load the full user details from the database using the email
-            UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+            UserDetails userDetails;
+            try {
+                userDetails = userDetailsService.loadUserByUsername(email);
+            } catch (Exception e) {
+                filterChain.doFilter(request, response);
+                return;
+            }
 
             // Validate the token against the user
-            if (jwtService.isTokenValid(token, userDetails.getUsername())) {
+            if (jwtService.isTokenValid(token, email)) {
 
                 // Create an authentication object with user's details and permissions
                 UsernamePasswordAuthenticationToken authToken =

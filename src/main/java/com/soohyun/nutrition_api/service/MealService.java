@@ -1,7 +1,9 @@
 package com.soohyun.nutrition_api.service;
 
+import com.soohyun.nutrition_api.exception.MealNotFoundException;
 import com.soohyun.nutrition_api.model.Meal;
 import com.soohyun.nutrition_api.repository.MealRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +32,12 @@ public class MealService {
         return mealRepository.save(meal);
     }
 
+    @Transactional
     public void deleteMeal(UUID id) {
-        mealRepository.deleteById(id);
+        Meal meal = mealRepository.findById(id)
+                        .orElseThrow(() ->
+                                new MealNotFoundException(id));
+        mealRepository.delete(meal);
+        mealRepository.flush();
     }
 }
