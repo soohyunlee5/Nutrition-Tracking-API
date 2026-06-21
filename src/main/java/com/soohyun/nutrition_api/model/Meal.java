@@ -1,6 +1,9 @@
 package com.soohyun.nutrition_api.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -14,8 +17,11 @@ public class Meal {
     @Id
     @GeneratedValue(strategy= GenerationType.UUID)
     private UUID id;
+    @NotBlank(message = "Meal name cannot be empty")
     private String name;
+    @Min(value = 0, message = "Calories cannot be negative")
     private int calories;
+    @NotNull(message = "Date cannot be empty")
     private LocalDate date;
     @ManyToOne(optional = true)
     @JoinColumn(name = "user_id")

@@ -3,6 +3,7 @@ package com.soohyun.nutrition_api.controller;
 import com.soohyun.nutrition_api.model.User;
 import com.soohyun.nutrition_api.security.JwtService;
 import com.soohyun.nutrition_api.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,7 +33,7 @@ public class AuthController {
 
     // Register a new user and return a JWT token
     @PostMapping("/register")
-    public Map<String, String> register(@RequestBody User user) {
+    public Map<String, String> register(@Valid @RequestBody User user) {
         // Hash the password before saving to database
         user = new User(user.getName(), user.getUsername(),
                 passwordEncoder.encode(user.getPassword()));

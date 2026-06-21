@@ -4,6 +4,7 @@ import com.soohyun.nutrition_api.exception.MealNotFoundException;
 import com.soohyun.nutrition_api.model.Meal;
 import com.soohyun.nutrition_api.model.User;
 import com.soohyun.nutrition_api.service.MealService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,7 @@ public class MealController {
     }
 
     @PostMapping
-    Meal newMeal(@RequestBody Meal newMeal, @AuthenticationPrincipal User currentUser) {
+    Meal newMeal(@Valid @RequestBody Meal newMeal, @AuthenticationPrincipal User currentUser) {
         newMeal.setUser(currentUser);
         return mealService.createMeal(newMeal);
     }

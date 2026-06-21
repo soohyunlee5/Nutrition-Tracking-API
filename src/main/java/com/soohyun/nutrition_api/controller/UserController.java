@@ -3,6 +3,7 @@ package com.soohyun.nutrition_api.controller;
 import com.soohyun.nutrition_api.exception.UserNotFoundException;
 import com.soohyun.nutrition_api.model.User;
 import com.soohyun.nutrition_api.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +32,7 @@ public class UserController {
     }
 
     @PostMapping
-    User newUser(@RequestBody User newUser) {
+    User newUser(@Valid @RequestBody User newUser) {
         return userService.createUser(newUser);
     }
 
