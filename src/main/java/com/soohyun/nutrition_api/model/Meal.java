@@ -13,7 +13,6 @@ import java.util.UUID;
         name = "meals"
 )
 public class Meal {
-
     @Id
     @GeneratedValue(strategy= GenerationType.UUID)
     private UUID id;

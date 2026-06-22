@@ -38,7 +38,10 @@ public class UserService implements UserDetailsService {
     }
 
     public void deleteUser(UUID id) {
-        userRepository.deleteById(id);
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
+        userRepository.delete(user);
+        userRepository.flush();
     }
 
     @Override
