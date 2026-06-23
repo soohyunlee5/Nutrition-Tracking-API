@@ -93,4 +93,16 @@ public class User implements UserDetails {
     public List<Meal> getMeals() {
         return meals;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setUsername(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

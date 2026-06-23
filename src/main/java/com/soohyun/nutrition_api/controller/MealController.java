@@ -39,6 +39,11 @@ public class MealController {
         return mealService.createMeal(newMeal);
     }
 
+    @PatchMapping("/{id}")
+    Meal updateMeal(@PathVariable UUID id, @Valid @RequestBody Meal updatedMeal) {
+        return mealService.updateMeal(id, updatedMeal);
+    }
+
     @DeleteMapping("/{id}")
     void deleteMeal(@PathVariable UUID id) {
         mealService.deleteMeal(id);

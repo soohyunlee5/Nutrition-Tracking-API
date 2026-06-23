@@ -65,4 +65,16 @@ public class Meal {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCalories(int calories) {
+        this.calories = calories;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
 }

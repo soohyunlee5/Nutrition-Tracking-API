@@ -37,9 +37,26 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
+    public User updateUser(UUID id, User updatedUser) {
+        User existingUser = userRepository.findById(id)
+                .orElseThrow(() ->
+                        new UserNotFoundException(id));
+        if (updatedUser.getName() != null) {
+            existingUser.setName(updatedUser.getName());
+        }
+        if (updatedUser.getUsername() != null) {
+            existingUser.setUsername(updatedUser.getUsername());
+        }
+        if (updatedUser.getPassword() != null) {
+            existingUser.setPassword(updatedUser.getPassword());
+        }
+        return userRepository.save(existingUser);
+    }
+
     public void deleteUser(UUID id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException(id));
+                .orElseThrow(() ->
+                        new UserNotFoundException(id));
         userRepository.delete(user);
         userRepository.flush();
     }
@@ -47,6 +64,7 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) {
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new UserNotFoundException(email));
+                .orElseThrow(() ->
+                        new UserNotFoundException(email));
     }
 }
