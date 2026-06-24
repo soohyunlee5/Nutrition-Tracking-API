@@ -20,6 +20,7 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private UUID id;
     private String name;
     @Email(message = "Must be valid email address")
@@ -80,7 +81,12 @@ public class User implements UserDetails {
         return name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     @Override
+    @JsonIgnore
     public String getUsername() {
         return email;
     }

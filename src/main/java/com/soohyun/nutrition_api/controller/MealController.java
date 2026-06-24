@@ -4,6 +4,7 @@ import com.soohyun.nutrition_api.exception.MealNotFoundException;
 import com.soohyun.nutrition_api.model.Meal;
 import com.soohyun.nutrition_api.model.User;
 import com.soohyun.nutrition_api.service.MealService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -14,6 +15,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/meals")
+@SecurityRequirement(name = "bearerAuth")
 public class MealController {
     private final MealService mealService;
 

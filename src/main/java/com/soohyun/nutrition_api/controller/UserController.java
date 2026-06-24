@@ -3,6 +3,7 @@ package com.soohyun.nutrition_api.controller;
 import com.soohyun.nutrition_api.exception.UserNotFoundException;
 import com.soohyun.nutrition_api.model.User;
 import com.soohyun.nutrition_api.service.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/users")
+@SecurityRequirement(name = "bearerAuth")
 public class UserController {
     private final UserService userService;
 
